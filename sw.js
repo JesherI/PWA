@@ -2,7 +2,7 @@
 
 // 1.Nombre del cache y archivos a cachear
 const CACHE_NAME = "mi-cahce-v1";
-const urlsToCache = ["index.html", "style.css", "app.js", "offline.html"];
+const urlsToCache = ["index.html", "offline.html"];
 
 // 2.INSTALL -> se ejecuta al instalar el SW
 self.addEventListener("install", (event) => {
