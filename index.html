@@ -18,5 +18,13 @@
 
     <button onclick="alert('Hola desde la PWA!')">Click aqui</button>
 
+    <script>
+        if ("serviceWorker" in navigator){
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(() => console.log("Servide worker registrado"))
+                .catch(err => console.log("Error al tratar de registrar el SW", err));
+        }
+    </script>
 </body>
 </html> 
