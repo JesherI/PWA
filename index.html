@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +11,56 @@
      <!--Definir color de la barra de navegacion en moviles -->
      <meta name="theme-color" content="#2196f3">
 
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #2196f3;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            background-color: #0b7dda;
+        }
+        .navbar a.active {
+            background-color: #0b7dda;
+        }
+        .content {
+            padding: 20px;
+        }
+        @media screen and (max-width: 600px) {
+            .navbar a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+     </style>
 </head>
 <body>
-    <h1>Bienvenido a mi PWA</h1>
-    <p>Se puede instalar como aplicación en tu celular</p>
+    <div class="navbar">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="login.html">Iniciar Sesión</a>
+    </div>
 
-    <button onclick="alert('Hola desde la PWA!')">Click aqui</button>
+    <div class="content">
+        <h1>Bienvenido a mi PWA</h1>
+        <p>Se puede instalar como aplicación en tu celular</p>
+
+        <button onclick="alert('Hola desde la PWA!')">Click aqui</button>
+    </div>
 
     <script>
         if ("serviceWorker" in navigator){
@@ -27,4 +71,4 @@
         }
     </script>
 </body>
-</html> 
+</html>

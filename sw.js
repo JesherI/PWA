@@ -29,12 +29,24 @@ self.addEventListener("activate", (event) => {
 // 4.FETCH -> se ejecuta cada vez que se haga una petición al servidor
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-      return fetch(event.request);
-    })
+    caches.match(event.request)
+      .then((response) => {
+        if (response) {
+          return response;
+        }
+        return fetch(event.request)
+          .catch(() => {
+            // Si la petición falla (sin conexión), devolvemos la página offline
+            if (event.request.mode === 'navigate') {
+              return caches.match('offline.html');
+            }
+            // Para recursos que no son páginas HTML, podemos devolver un placeholder o simplemente fallar
+            return new Response('Sin conexión a Internet', {
+              status: 503,
+              statusText: 'Sin conexión a Internet'
+            });
+          });
+      })
   );
 });
   
