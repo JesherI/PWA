@@ -26,27 +26,16 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// 4.FETCH -> se ejecuta cada vez que se haga una petición al servidor
-self.addEventListener("fetch", (event) => {
+// 4. FETCH -> intercepta peticiones de la app
+// Intercepta cada petición de la PWA
+// Buscar primero en caché
+// Si no está, busca en Internet
+// En caso de falla, muestra la página offline.html
+self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request)
-          .catch(() => {
-            // Si la petición falla (sin conexión), devolvemos la página offline
-            if (event.request.mode === 'navigate') {
-              return caches.match('offline.html');
-            }
-            // Para recursos que no son páginas HTML, podemos devolver un placeholder o simplemente fallar
-            return new Response('Sin conexión a Internet', {
-              status: 503,
-              statusText: 'Sin conexión a Internet'
-            });
-          });
-      })
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request).catch(() => caches.match("offline.html"));
+    })
   );
 });
   
